@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-api-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mi-api
+  template:
+    metadata:
+      labels:
+        app: mi-api
+    spec:
+      containers:
+      - name: mi-api-container
+        image: juanjo440/api:v2
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /mnt/data  # Ruta dentro del contenedor donde se montará el volumen
+          name: data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-pvc  # Nombre del PVC que usaste
