@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-pv
+spec:
+  capacity:
+    storage: 1Gi  # Tamaño del volumen
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce  # Acceso único a través de un nodo
+  persistentVolumeReclaimPolicy: Retain  # Política de recuperación
+  storageClassName: manual  # El nombre de la clase de almacenamiento
+  hostPath:
+    path: /mnt/data  # Directorio en la VM de Minikube donde se almacenarán los datos
